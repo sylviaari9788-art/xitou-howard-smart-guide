@@ -178,14 +178,14 @@
                             <span>🧭</span><span>從目前位置開始導航</span>
                         </button>
                         <button onclick="getCurrentLocation()" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-forest-dark transition flex items-center space-x-2">
-                            <span>📍</span><span>取得目前 GPS 位置</span>
+                            <span>📍</span><span>取得並分享 GPS 位置</span>
                         </button>
                         <button onclick="alert('停車配置圖放大預覽')" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-forest-dark transition flex items-center space-x-2">
                             <span>🗺️</span><span>查看停車場地圖</span>
                         </button>
                     </div>
                     <div id="gpsStatus" class="mt-3 text-xs text-cream/80 bg-white/10 border border-white/10 rounded-xl px-4 py-3">
-                        📍 尚未取得您的位置。點選「取得目前 GPS 位置」後，請允許瀏覽器使用定位。
+                        📍 尚未取得您的位置。點選「取得並分享 GPS 位置」後，瀏覽器會詢問定位權限；同意後，本次定位將傳送至智慧導覽後台。
                     </div>
                 </div>
             </div>
@@ -507,8 +507,50 @@
             box.scrollTop = box.scrollHeight;
         }
 
-        // 4. GPS 定位與 Google Maps 導航
+        // 4. GPS 定位、Supabase 後台紀錄與 Google Maps 導航
         let currentGPS = null;
+
+        // 靜態 HTML 不會自動讀取 Vercel 的 NEXT_PUBLIC_* 環境變數，
+        // 因此此版直接使用 Supabase 的公開 Project URL 與 Publishable Key。
+        // Publishable Key 是設計給瀏覽器前端使用，真正的 Secret Key 絕不可放在此處。
+        const SUPABASE_URL = 'https://rslxjtyehhyhvlwjpdrt.supabase.co';
+        const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_K43iSFEfgfObkFpi49iMLQ_kaXS9KjZ';
+
+        function getGuestCode() {
+            let code = localStorage.getItem('xitou_guest_code');
+            if (!code) {
+                code = 'G' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 6).toUpperCase();
+                localStorage.setItem('xitou_guest_code', code);
+            }
+            return code;
+        }
+
+        async function saveLocationToSupabase(gps, destination = 'parking') {
+            const payload = {
+                guest_code: getGuestCode(),
+                latitude: gps.lat,
+                longitude: gps.lng,
+                accuracy: gps.accuracy,
+                destination
+            };
+
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/guest_locations`, {
+                method: 'POST',
+                headers: {
+                    'apikey': SUPABASE_PUBLISHABLE_KEY,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                let detail = '';
+                try { detail = await response.text(); } catch (_) {}
+                throw new Error(`Supabase ${response.status}: ${detail || response.statusText}`);
+            }
+            return payload;
+        }
 
         function updateGPSStatus(message, isError = false) {
             const box = document.getElementById('gpsStatus');
@@ -532,7 +574,15 @@
                         lng: position.coords.longitude,
                         accuracy: position.coords.accuracy
                     };
-                    updateGPSStatus(`✅ 已取得目前位置：${currentGPS.lat.toFixed(6)}, ${currentGPS.lng.toFixed(6)}（精確度約 ${Math.round(currentGPS.accuracy)} 公尺）`);
+                    updateGPSStatus(`📡 已取得位置，正在傳送至智慧導覽後台…`);
+                    saveLocationToSupabase(currentGPS, 'parking')
+                        .then((saved) => {
+                            updateGPSStatus(`✅ 定位已分享至後台｜旅客代號 ${saved.guest_code}｜${currentGPS.lat.toFixed(6)}, ${currentGPS.lng.toFixed(6)}（精確度約 ${Math.round(currentGPS.accuracy)} 公尺）`);
+                        })
+                        .catch((err) => {
+                            console.error('GPS Supabase insert failed:', err);
+                            updateGPSStatus(`⚠️ GPS 已取得，但後台儲存失敗：${err.message}`, true);
+                        });
                 },
                 (error) => {
                     const messages = {
@@ -569,7 +619,13 @@
                         lng: position.coords.longitude,
                         accuracy: position.coords.accuracy
                     };
-                    updateGPSStatus('✅ 定位成功，已開啟 Google Maps 導航。');
+                    updateGPSStatus('📡 定位成功，正在同步至後台並開啟 Google Maps 導航…');
+                    saveLocationToSupabase(currentGPS, 'parking_navigation')
+                        .then(() => updateGPSStatus('✅ 定位已同步至後台，並已開啟 Google Maps 導航。'))
+                        .catch((err) => {
+                            console.error('GPS Supabase insert failed:', err);
+                            updateGPSStatus('⚠️ 導航已開啟，但定位資料未成功寫入後台。', true);
+                        });
                     openMaps(currentGPS.lat, currentGPS.lng);
                 },
                 () => {
