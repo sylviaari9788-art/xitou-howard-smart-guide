@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>溪頭福華渡假飯店｜多語系智慧旅遊導覽</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            DEFAULT: '#1C3B2B',
+                            dark: '#12271C',
+                            light: '#2D5842'
+                        },
+                        sage: '#8A9A86',
+                        cream: '#F9F8F3',
+                        wood: '#5C4033',
+                        gold: '#C8A261',
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F9F8F3; color: #2C2C2C; font-family: 'Noto Sans TC', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="pb-20 md:pb-0">
+
+    <!-- 1. 桌面版頂端導覽列 -->
+    <header class="sticky top-0 z-40 bg-forest text-cream shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/40">
+                    <span class="text-gold font-serif font-bold text-xl">福</span>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-serif font-bold text-cream tracking-wide" id="nav-title">溪頭福華渡假飯店</h1>
+                    <p class="text-xs text-sage tracking-widest hidden sm:block">HOWARD RESORT XITOU</p>
+                </div>
+            </div>
+
+            <!-- 導覽連結 -->
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#hero" class="hover:text-gold transition">首頁</a>
+                <a href="#steps" class="hover:text-gold transition" id="nav-checkin">入住指南</a>
+                <a href="#parking" class="hover:text-gold transition" id="nav-parking">停車資訊</a>
+                <a href="#buildings" class="hover:text-gold transition" id="nav-buildings">住宿棟別</a>
+                <a href="#gifts" class="hover:text-gold transition" id="nav-gifts">住房好禮</a>
+                <a href="#faq" class="hover:text-gold transition" id="nav-faq">常見問題</a>
+            </nav>
+
+            <!-- 語系切換器 -->
+            <div class="flex items-center space-x-1 bg-forest-dark px-3 py-1.5 rounded-full border border-sage/30 text-xs">
+                <span class="mr-1">🌐</span>
+                <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-transparent text-cream focus:outline-none cursor-pointer">
+                    <option value="zh" class="bg-forest text-cream">繁體中文</option>
+                    <option value="en" class="bg-forest text-cream">English</option>
+                    <option value="ja" class="bg-forest text-cream">日本語</option>
+                    <option value="ko" class="bg-forest text-cream">한국어</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section 首頁形象區 -->
+    <section id="hero" class="relative bg-forest text-cream py-16 md:py-24 px-4 overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80');"></div>
+        <div class="relative max-w-5xl mx-auto text-center space-y-6">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-gold/20 border border-gold text-gold text-sm tracking-wider" id="hero-badge">森林系渡假飯店 × 智慧導覽</span>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-cream leading-tight" id="hero-title">走進溪頭，讓旅程更簡單</h2>
+            <p class="text-base md:text-xl text-cream/80 max-w-2xl mx-auto font-light" id="hero-subtitle">從抵達、停車、入住到館內導覽，一站掌握旅程所需資訊。</p>
+
+            <!-- 快捷導航大按鈕矩陣 -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-8 text-forest font-medium">
+                <a href="#steps" class="bg-cream hover:bg-gold hover:text-white p-4 rounded-xl shadow transition flex flex-col items-center justify-center space-y-2">
+                    <span class="text-2xl">🔑</span>
+                    <span class="text-sm font-bold" id="btn-checkin">我要入住</span>
+                </a>
+                <a href="#parking" class="bg-cream hover:bg-gold hover:text-white p-4 rounded-xl shadow transition flex flex-col items-center justify-center space-y-2">
+                    <span class="text-2xl">🅿️</span>
+                    <span class="text-sm font-bold" id="btn-parking">停車資訊</span>
+                </a>
+                <a href="#buildings" class="bg-cream hover:bg-gold hover:text-white p-4 rounded-xl shadow transition flex flex-col items-center justify-center space-y-2">
+                    <span class="text-2xl">🏡</span>
+                    <span class="text-sm font-bold" id="btn-buildings">住宿棟別</span>
+                </a>
+                <a href="#buildings" class="bg-cream hover:bg-gold hover:text-white p-4 rounded-xl shadow transition flex flex-col items-center justify-center space-y-2">
+                    <span class="text-2xl">🗺️</span>
+                    <span class="text-sm font-bold" id="btn-map">館內導覽</span>
+                </a>
+                <a href="#gifts" class="bg-cream hover:bg-gold hover:text-white p-4 rounded-xl shadow transition flex flex-col items-center justify-center space-y-2">
+                    <span class="text-2xl">🎁</span>
+                    <span class="text-sm font-bold" id="btn-gifts">住房好禮</span>
+                </a>
+                <button onclick="toggleAIModal()" class="bg-gold text-white hover:bg-gold/80 p-4 rounded-xl shadow transition flex flex-col items-center justify-center space-y-2 col-span-2 sm:col-span-1">
+                    <span class="text-2xl">🤖</span>
+                    <span class="text-sm font-bold" id="btn-ai">詢問 AI 客服</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 今天怎麼入住？ (流程式圖卡) -->
+    <section id="steps" class="py-12 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-8">
+            <h3 class="text-2xl md:text-3xl font-serif font-bold text-forest" id="sec-steps-title">今天怎麼入住？</h3>
+            <p class="text-sage font-medium mt-1" id="sec-steps-subtitle">順暢指引 6 步驟，隨時點擊看詳情</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <!-- Step 1 -->
+            <div class="bg-white p-4 rounded-xl border border-sage/20 shadow-sm hover:shadow-md transition">
+                <span class="text-xs font-bold text-gold tracking-widest block mb-1">STEP 01</span>
+                <h4 class="font-bold text-forest text-base mb-2">抵達溪頭</h4>
+                <p class="text-xs text-gray-600">沿台21線抵達園區入口第一管制站。</p>
+            </div>
+            <!-- Step 2 -->
+            <div class="bg-white p-4 rounded-xl border border-sage/20 shadow-sm hover:shadow-md transition">
+                <span class="text-xs font-bold text-gold tracking-widest block mb-1">STEP 02</span>
+                <h4 class="font-bold text-forest text-base mb-2">入園 / 停車</h4>
+                <p class="text-xs text-gray-600">出示訂房資訊入園，並停放於指定停車區。</p>
+            </div>
+            <!-- Step 3 -->
+            <div class="bg-white p-4 rounded-xl border border-sage/20 shadow-sm hover:shadow-md transition">
+                <span class="text-xs font-bold text-gold tracking-widest block mb-1">STEP 03</span>
+                <h4 class="font-bold text-forest text-base mb-2">前往大廳</h4>
+                <p class="text-xs text-gray-600">步行或搭乘接駁車至飯店服務中心大廳。</p>
+            </div>
+            <!-- Step 4 -->
+            <div class="bg-white p-4 rounded-xl border border-sage/20 shadow-sm hover:shadow-md transition">
+                <span class="text-xs font-bold text-gold tracking-widest block mb-1">STEP 04</span>
+                <h4 class="font-bold text-forest text-base mb-2">辦理 Check-in</h4>
+                <p class="text-xs text-gray-600">出示證件領取房卡、停車折抵券及好禮券。</p>
+            </div>
+            <!-- Step 5 -->
+            <div class="bg-white p-4 rounded-xl border border-sage/20 shadow-sm hover:shadow-md transition">
+                <span class="text-xs font-bold text-gold tracking-widest block mb-1">STEP 05</span>
+                <h4 class="font-bold text-forest text-base mb-2">前往住宿棟別</h4>
+                <p class="text-xs text-gray-600">依指標走無障礙步道或平路前往搭電梯/樓梯。</p>
+            </div>
+            <!-- Step 6 -->
+            <div class="bg-white p-4 rounded-xl border border-sage/20 shadow-sm hover:shadow-md transition">
+                <span class="text-xs font-bold text-gold tracking-widest block mb-1">STEP 06</span>
+                <h4 class="font-bold text-forest text-base mb-2">感應入住房間</h4>
+                <p class="text-xs text-gray-600">開啟房門，享受沉浸式森林芬多精。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 停車攻略 -->
+    <section id="parking" class="py-12 bg-white border-y border-sage/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="bg-forest text-cream rounded-2xl p-6 md:p-10 shadow-xl relative overflow-hidden">
+                <div class="max-w-2xl space-y-4">
+                    <span class="bg-gold text-forest text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Parking Guide</span>
+                    <h3 class="text-2xl md:text-3xl font-serif font-bold">飯店專屬停車指南</h3>
+                    <p class="text-cream/80 text-sm leading-relaxed">
+                        入園時需先支付園區代收停車費，請於辦理入住時 **出示停車繳費憑證**，櫃檯將為您辦理住宿期間 **180元 折抵優惠**。若同行有長輩或重大型行李，可先於服務中心臨停卸貨再前往停放。
+                    </p>
+                    <div class="pt-4 flex flex-wrap gap-3">
+                        <button onclick="startGPSNavigation()" class="bg-gold text-forest font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-white transition flex items-center space-x-2">
+                            <span>🧭</span><span>從目前位置開始導航</span>
+                        </button>
+                        <button onclick="getCurrentLocation()" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-forest-dark transition flex items-center space-x-2">
+                            <span>📍</span><span>取得目前 GPS 位置</span>
+                        </button>
+                        <button onclick="alert('停車配置圖放大預覽')" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-forest-dark transition flex items-center space-x-2">
+                            <span>🗺️</span><span>查看停車場地圖</span>
+                        </button>
+                    </div>
+                    <div id="gpsStatus" class="mt-3 text-xs text-cream/80 bg-white/10 border border-white/10 rounded-xl px-4 py-3">
+                        📍 尚未取得您的位置。點選「取得目前 GPS 位置」後，請允許瀏覽器使用定位。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 住房限定｜好禮三選一 -->
+    <section id="gifts" class="py-12 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-8">
+            <span class="text-gold font-bold text-xs tracking-widest block uppercase">Exclusive Offers</span>
+            <h3 class="text-2xl md:text-3xl font-serif font-bold text-forest">住房限定｜好禮三選一</h3>
+            <p class="text-sage text-sm mt-1">憑辦理入住發放之專屬憑證至指定地點兌換</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Gift Card 1 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-sage/20 shadow-sm hover:shadow-md transition">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80');"></div>
+                <div class="p-5 space-y-3">
+                    <span class="bg-gold/10 text-gold text-xs font-bold px-2.5 py-1 rounded">體驗 A</span>
+                    <h4 class="font-bold text-forest text-lg">森林手作工藝 DIY</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">親自體驗溪頭在地杉木紀念品製作，帶回專屬於你的森林回憶。</p>
+                    <div class="text-xs text-gray-400 border-t pt-2">兌換地點：森林活動中心｜適用時間：15:00 - 17:00</div>
+                </div>
+            </div>
+            <!-- Gift Card 2 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-sage/20 shadow-sm hover:shadow-md transition">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80');"></div>
+                <div class="p-5 space-y-3">
+                    <span class="bg-gold/10 text-gold text-xs font-bold px-2.5 py-1 rounded">體驗 B</span>
+                    <h4 class="font-bold text-forest text-lg">松風閣 特色餐飲抵用券</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">憑券享指定套餐或森林下午茶每房 200 元折抵優惠。</p>
+                    <div class="text-xs text-gray-400 border-t pt-2">兌換地點：松風閣餐廳｜適用時間：依餐廳營業時間</div>
+                </div>
+            </div>
+            <!-- Gift Card 3 -->
+            <div class="bg-white rounded-2xl overflow-hidden border border-sage/20 shadow-sm hover:shadow-md transition">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&q=80');"></div>
+                <div class="p-5 space-y-3">
+                    <span class="bg-gold/10 text-gold text-xs font-bold px-2.5 py-1 rounded">體驗 C</span>
+                    <h4 class="font-bold text-forest text-lg">溪頭限定 植萃精油禮盒</h4>
+                    <p class="text-xs text-gray-600 leading-relaxed">嚴選高山檜木與芬多精舒緩精油組，在家也能享受森林奢華體驗。</p>
+                    <div class="text-xs text-gray-400 border-t pt-2">兌換地點：飯店精品展示區｜適用時間：退房前兌換</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 住宿棟別智慧導覽（已更正：僅漢光樓有電梯） -->
+    <section id="buildings" class="py-12 bg-cream">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl md:text-3xl font-serif font-bold text-forest">住宿棟別智慧導覽</h3>
+                <p class="text-sage text-sm mt-1">輕鬆確認電梯與無障礙路線，無憂前往房間</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 漢光樓 (唯一有電梯) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-gold shadow-md space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">長輩 / 行動不便首選</span>
+                            <h4 class="text-xl font-bold text-forest mt-1">漢光樓 (Han-Kuang Building)</h4>
+                        </div>
+                        <span class="text-2xl">🛗</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 bg-cream p-3 rounded-xl">
+                        <div><b>電梯設備：</b><span class="text-emerald-700 font-bold">有電梯（全館唯一）</span></div>
+                        <div><b>步行時間：</b>大廳出發約 5 分鐘</div>
+                        <div><b>階梯狀況：</b>無障礙微坡道</div>
+                        <div><b>行李建議：</b>可推行李箱直達</div>
+                    </div>
+                    <p class="text-xs text-gray-500">路線：沿主道路直行經餐廳後右轉，設有無障礙電梯直達各樓層，最適合長輩與推行李旅客。</p>
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="alert('導覽漢光樓地圖')" class="flex-1 bg-forest text-cream text-xs py-2.5 rounded-lg font-bold hover:bg-forest-light transition">查看路線</button>
+                    </div>
+                </div>
+
+                <!-- 大學樓 (無電梯) -->
+                <div class="bg-white rounded-2xl p-6 border border-sage/20 shadow-sm space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">距離大廳最近</span>
+                            <h4 class="text-xl font-bold text-forest mt-1">大學樓 (University Building)</h4>
+                        </div>
+                        <span class="text-2xl">🪜</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 bg-cream p-3 rounded-xl">
+                        <div><b>電梯設備：</b><span class="text-amber-800 font-bold">無電梯</span></div>
+                        <div><b>步行時間：</b>大廳出發約 3 分鐘</div>
+                        <div><b>階梯狀況：</b>設斜坡/需走樓梯</div>
+                        <div><b>行李建議：</b>建議搬運或輕裝</div>
+                    </div>
+                    <p class="text-xs text-gray-500">路線：辦理完 Check-in 後，沿著森林木棧道左側平路直行即可抵達，高樓層房型需步行樓梯。</p>
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="alert('導覽大學樓地圖')" class="flex-1 bg-forest text-cream text-xs py-2.5 rounded-lg font-bold hover:bg-forest-light transition">查看路線</button>
+                    </div>
+                </div>
+
+                <!-- 鳳凰樓 (無電梯) -->
+                <div class="bg-white rounded-2xl p-6 border border-sage/20 shadow-sm space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">需走階梯</span>
+                            <h4 class="text-xl font-bold text-forest mt-1">鳳凰樓 (Phoenix Building)</h4>
+                        </div>
+                        <span class="text-2xl">🪜</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 bg-cream p-3 rounded-xl">
+                        <div><b>電梯設備：</b><span class="text-amber-800 font-bold">無電梯</span></div>
+                        <div><b>步行時間：</b>大廳出發約 6 分鐘</div>
+                        <div><b>階梯狀況：</b>需步行約 20 階</div>
+                        <div><b>行李建議：</b>建議先於大廳卸行李</div>
+                    </div>
+                    <p class="text-xs text-gray-500">路線：環境安靜唯美，但入口處需爬一小段森林石階，行動不便者請特別留意。</p>
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="alert('導覽鳳凰樓地圖')" class="flex-1 bg-forest text-cream text-xs py-2.5 rounded-lg font-bold hover:bg-forest-light transition">查看路線</button>
+                    </div>
+                </div>
+
+                <!-- 紅樓 (無電梯) -->
+                <div class="bg-white rounded-2xl p-6 border border-sage/20 shadow-sm space-y-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded-full">景觀優美</span>
+                            <h4 class="text-xl font-bold text-forest mt-1">紅樓 (Red Building)</h4>
+                        </div>
+                        <span class="text-2xl">🪜</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 bg-cream p-3 rounded-xl">
+                        <div><b>電梯設備：</b><span class="text-amber-800 font-bold">無電梯</span></div>
+                        <div><b>步行時間：</b>大廳出發約 8 分鐘</div>
+                        <div><b>階梯狀況：</b>斜坡及階梯</div>
+                        <div><b>行李建議：</b>建議先於大廳卸行李</div>
+                    </div>
+                    <p class="text-xs text-gray-500">路線：穿過紅樓木棧道後抵達，高樓層無視野遮蔽，能一覽溪頭樹海視野。</p>
+                    <div class="flex space-x-2 pt-2">
+                        <button onclick="alert('導覽紅樓地圖')" class="flex-1 bg-forest text-cream text-xs py-2.5 rounded-lg font-bold hover:bg-forest-light transition">查看路線</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. 常見 QA (Accordion) -->
+    <section id="faq" class="py-12 max-w-4xl mx-auto px-4">
+        <div class="text-center mb-8">
+            <h3 class="text-2xl md:text-3xl font-serif font-bold text-forest">常見問題 FAQ</h3>
+            <p class="text-sage text-sm mt-1">快速解答您的入住疑難雜症</p>
+        </div>
+
+        <div class="space-y-3">
+            <!-- QA 1 -->
+            <div class="bg-white rounded-xl border border-sage/20 overflow-hidden shadow-sm">
+                <button onclick="toggleFAQ(1)" class="w-full p-4 text-left font-bold text-forest flex justify-between items-center hover:bg-cream/50 transition">
+                    <span>Q: Check-in 地點在哪裡？幾點可以入住？</span>
+                    <span id="faq-icon-1" class="text-gold font-bold">＋</span>
+                </button>
+                <div id="faq-ans-1" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
+                    入住登記櫃檯位於 **溪頭福華服務中心大廳**。辦理入住時間為 **下午 15:00 後**，退房時間為 **上午 11:00 前**。提前抵達可先寄放行李。
+                </div>
+            </div>
+            <!-- QA 2 -->
+            <div class="bg-white rounded-xl border border-sage/20 overflow-hidden shadow-sm">
+                <button onclick="toggleFAQ(2)" class="w-full p-4 text-left font-bold text-forest flex justify-between items-center hover:bg-cream/50 transition">
+                    <span>Q: 哪一棟住宿棟別有電梯？</span>
+                    <span id="faq-icon-2" class="text-gold font-bold">＋</span>
+                </button>
+                <div id="faq-ans-2" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
+                    目前飯店僅 **漢光樓** 配備電梯；大學樓、鳳凰樓與紅樓皆無電梯設施。若同行有長輩或行動不便者，建議優先預約 **漢光樓**。
+                </div>
+            </div>
+            <!-- QA 3 -->
+            <div class="bg-white rounded-xl border border-sage/20 overflow-hidden shadow-sm">
+                <button onclick="toggleFAQ(3)" class="w-full p-4 text-left font-bold text-forest flex justify-between items-center hover:bg-cream/50 transition">
+                    <span>Q: 住宿旅客的停車費用如何計算？</span>
+                    <span id="faq-icon-3" class="text-gold font-bold">＋</span>
+                </button>
+                <div id="faq-ans-3" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
+                    住房旅客享入園停車折抵優惠。入園時繳交之停車費，請保留繳費單據，並於 Check-in 時出示給櫃檯人員，即可辦理 **180 元住宿停車折抵**。
+                </div>
+            </div>
+            <!-- QA 4 -->
+            <div class="bg-white rounded-xl border border-sage/20 overflow-hidden shadow-sm">
+                <button onclick="toggleFAQ(4)" class="w-full p-4 text-left font-bold text-forest flex justify-between items-center hover:bg-cream/50 transition">
+                    <span>Q: 行李太多或住在無電梯棟別該怎麼辦？</span>
+                    <span id="faq-icon-4" class="text-gold font-bold">＋</span>
+                </button>
+                <div id="faq-ans-4" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
+                    可先將車輛臨停於 **大廳門口臨停區** 卸下行李，櫃檯服務中心提供行李暫存及協助運送至住宿棟別之服務。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. AI Concierge 浮動對話框視窗 -->
+    <div id="aiModal" class="fixed inset-0 bg-black/40 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="bg-white w-full sm:max-w-md h-[80vh] sm:h-[600px] rounded-t-2xl sm:rounded-2xl flex flex-col shadow-2xl overflow-hidden">
+            <!-- Modal Header -->
+            <div class="bg-forest text-cream p-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl">🤖</span>
+                    <div>
+                        <h4 class="font-bold text-sm">AI 智慧客服 Concierge</h4>
+                        <p class="text-[10px] text-sage">溪頭福華 24H 在線服務</p>
+                    </div>
+                </div>
+                <button onclick="toggleAIModal()" class="text-cream/80 hover:text-white text-xl">✕</button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-cream/40 text-xs">
+                <div class="bg-white p-3 rounded-xl border border-sage/20 max-w-[85%] text-gray-700 shadow-sm">
+                    您好！我是溪頭福華 AI 導覽客服。請問今天有什麼可以為您服務？您可以直接發問或點選下方快捷問題：
+                </div>
+            </div>
+
+            <!-- Pre-defined quick chips -->
+            <div class="p-2 bg-white border-t border-sage/10 flex space-x-2 overflow-x-auto hide-scrollbar text-[11px]">
+                <button onclick="sendQuickMsg(' Check-in 在哪裡？')" class="bg-cream hover:bg-gold/20 text-forest px-2.5 py-1 rounded-full whitespace-nowrap border border-sage/30">📍 Check-in 在哪裡？</button>
+                <button onclick="sendQuickMsg('哪一棟有電梯？')" class="bg-cream hover:bg-gold/20 text-forest px-2.5 py-1 rounded-full whitespace-nowrap border border-sage/30">🛗 哪一棟有電梯？</button>
+                <button onclick="sendQuickMsg('停車費多少錢？')" class="bg-cream hover:bg-gold/20 text-forest px-2.5 py-1 rounded-full whitespace-nowrap border border-sage/30">🅿️ 停車費多少錢？</button>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="p-3 bg-white border-t flex space-x-2">
+                <input id="chatInput" type="text" placeholder="請輸入您的問題..." class="flex-1 bg-cream px-3 py-2 rounded-xl text-xs focus:outline-none focus:ring-1 focus:ring-forest">
+                <button onclick="handleSend()" class="bg-forest text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-forest-light">發送</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮動喚起 AI 按鈕 (右下角) -->
+    <button onclick="toggleAIModal()" class="fixed bottom-20 md:bottom-6 right-4 z-30 bg-gold text-forest font-bold px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 border-2 border-white hover:scale-105 transition">
+        <span class="text-xl">🤖</span>
+        <span class="text-xs tracking-wider">問 AI 客服</span>
+    </button>
+
+    <!-- 9. Mobile Sticky Bottom Bar 手機版底部導覽 -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-forest text-cream border-t border-sage/30 px-2 py-2 flex justify-around items-center text-center text-[10px]">
+        <a href="#hero" class="flex flex-col items-center">
+            <span class="text-base">🏠</span>
+            <span>首頁</span>
+        </a>
+        <a href="#steps" class="flex flex-col items-center">
+            <span class="text-base">🧭</span>
+            <span>導航</span>
+        </a>
+        <a href="#parking" class="flex flex-col items-center">
+            <span class="text-base">🅿️</span>
+            <span>停車</span>
+        </a>
+        <a href="#faq" class="flex flex-col items-center">
+            <span class="text-base">❓</span>
+            <span>QA</span>
+        </a>
+        <button onclick="toggleAIModal()" class="flex flex-col items-center text-gold">
+            <span class="text-base">🤖</span>
+            <span>AI客服</span>
+        </button>
+    </div>
+
+    <!-- JavaScript 邏輯 -->
+    <script>
+        // 1. FAQ 手風琴切換
+        function toggleFAQ(num) {
+            const ans = document.getElementById(`faq-ans-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                icon.innerText = '－';
+            } else {
+                ans.classList.add('hidden');
+                icon.innerText = '＋';
+            }
+        }
+
+        // 2. AI Modal 切換
+        function toggleAIModal() {
+            const modal = document.getElementById('aiModal');
+            modal.classList.toggle('hidden');
+        }
+
+        // 3. 模擬 AI 智慧客服對話回應機制（已修正電梯邏輯）
+        function sendQuickMsg(text) {
+            appendMessage('user', text);
+            setTimeout(() => {
+                let reply = "您好！關於此問題，建議您可以參考頁面上的最新指南，或直接至服務櫃檯由客服人員為您協助。";
+                if (text.includes("Check-in")) {
+                    reply = "辦理入住登記的地點位於【溪頭福華服務中心大廳】。辦理時間為 15:00 開始。";
+                } else if (text.includes("電梯")) {
+                    reply = "目前只有【漢光樓】配備電梯喔！大學樓、鳳凰樓與紅樓皆無電梯，同行若有長輩或重大型行李建議優先預約漢光樓，或至櫃檯申請行李運送服務。";
+                } else if (text.includes("停車")) {
+                    reply = "住房旅客憑入園停車繳費單據，可於辦理 Check-in 時向櫃檯申請 180 元停車折抵優惠。";
+                }
+                appendMessage('ai', reply);
+            }, 600);
+        }
+
+        function handleSend() {
+            const input = document.getElementById('chatInput');
+            const val = input.value.trim();
+            if (val) {
+                sendQuickMsg(val);
+                input.value = '';
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const box = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            if (sender === 'user') {
+                div.className = "bg-forest text-white p-3 rounded-xl max-w-[85%] ml-auto text-xs shadow-sm";
+            } else {
+                div.className = "bg-white p-3 rounded-xl border border-sage/20 max-w-[85%] text-gray-700 shadow-sm";
+            }
+            div.innerText = text;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        // 4. GPS 定位與 Google Maps 導航
+        let currentGPS = null;
+
+        function updateGPSStatus(message, isError = false) {
+            const box = document.getElementById('gpsStatus');
+            if (!box) return;
+            box.textContent = message;
+            box.className = isError
+                ? 'mt-3 text-xs text-red-100 bg-red-500/20 border border-red-200/20 rounded-xl px-4 py-3'
+                : 'mt-3 text-xs text-cream bg-white/10 border border-white/10 rounded-xl px-4 py-3';
+        }
+
+        function getCurrentLocation() {
+            if (!navigator.geolocation) {
+                updateGPSStatus('⚠️ 此裝置或瀏覽器不支援 GPS 定位功能。', true);
+                return;
+            }
+            updateGPSStatus('📡 正在取得目前位置，請允許瀏覽器使用定位…');
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    currentGPS = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        accuracy: position.coords.accuracy
+                    };
+                    updateGPSStatus(`✅ 已取得目前位置：${currentGPS.lat.toFixed(6)}, ${currentGPS.lng.toFixed(6)}（精確度約 ${Math.round(currentGPS.accuracy)} 公尺）`);
+                },
+                (error) => {
+                    const messages = {
+                        1: '您尚未允許定位權限，請在瀏覽器設定中開啟位置權限。',
+                        2: '目前無法取得您的位置，請確認 GPS 或網路是否開啟。',
+                        3: '取得位置逾時，請再試一次。'
+                    };
+                    updateGPSStatus(`⚠️ ${messages[error.code] || '定位發生錯誤，請稍後再試。'}`, true);
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+            );
+        }
+
+        function startGPSNavigation() {
+            const destination = encodeURIComponent('溪頭福華渡假飯店');
+            const openMaps = (lat, lng) => {
+                const origin = `${lat},${lng}`;
+                const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${destination}&travelmode=driving`;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            };
+            if (currentGPS) {
+                openMaps(currentGPS.lat, currentGPS.lng);
+                return;
+            }
+            if (!navigator.geolocation) {
+                window.open(`https://www.google.com/maps/search/?api=1&query=${destination}`, '_blank', 'noopener,noreferrer');
+                return;
+            }
+            updateGPSStatus('📡 正在取得目前位置，取得後會自動開啟 Google Maps 導航…');
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    currentGPS = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                        accuracy: position.coords.accuracy
+                    };
+                    updateGPSStatus('✅ 定位成功，已開啟 Google Maps 導航。');
+                    openMaps(currentGPS.lat, currentGPS.lng);
+                },
+                () => {
+                    updateGPSStatus('⚠️ 無法取得目前位置，已改為開啟溪頭福華的 Google Maps 搜尋頁。', true);
+                    window.open(`https://www.google.com/maps/search/?api=1&query=${destination}`, '_blank', 'noopener,noreferrer');
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 }
+            );
+        }
+
+        // 5. 多語系動態切換模擬
+        const i18nData = {
+            zh: {
+                title: "溪頭福華渡假飯店",
+                heroBadge: "森林系渡假飯店 × 智慧導覽",
+                heroTitle: "走進溪頭，讓旅程更簡單",
+                heroSub: "從抵達、停車、入住到館內導覽，一站掌握旅程所需資訊。",
+                checkin: "我要入住", parking: "停車資訊", buildings: "住宿棟別", map: "館內導覽", gifts: "住房好禮", ai: "詢問 AI 客服"
+            },
+            en: {
+                title: "Howard Resort Xitou",
+                heroBadge: "Forest Resort × Smart Guide",
+                heroTitle: "Welcome to Xitou, Made Simple.",
+                heroSub: "All your travel information from arrival, parking, check-in to resort amenities in one place.",
+                checkin: "Check-in", parking: "Parking Info", buildings: "Buildings", map: "Guide Map", gifts: "Special Offers", ai: "Ask AI Concierge"
+            },
+            ja: {
+                title: "渓頭華福リゾートホテル",
+                heroBadge: "森林リゾート × スマートガイド",
+                heroTitle: "渓頭へようこそ、旅をもっと快適に",
+                heroSub: "到着、駐車場、チェックインから館内案内まで、必要な情報が一括で分かります。",
+                checkin: "チェックイン", parking: "駐車場情報", buildings: "客室棟案内", map: "館内マップ", gifts: "宿泊特典", ai: "AIに質問"
+            },
+            ko: {
+                title: "시토우 하워드 리조트",
+                heroBadge: "포레스트 리조트 × 스마트 가이드",
+                heroTitle: "시토우에 오신 것을 환영합니다",
+                heroSub: "도착, 주차, 체크인부터 시설 안내까지 필요한 모든 정보를 한곳에서 확인하세요.",
+                checkin: "체크인", parking: "주차 정보", buildings: "숙박 동 안내", map: "리조트 맵", gifts: "특별 혜택", ai: "AI 문의하기"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const data = i18nData[lang];
+            if (!data) return;
+            document.getElementById('nav-title').innerText = data.title;
+            document.getElementById('hero-badge').innerText = data.heroBadge;
+            document.getElementById('hero-title').innerText = data.heroTitle;
+            document.getElementById('hero-subtitle').innerText = data.heroSub;
+            document.getElementById('btn-checkin').innerText = data.checkin;
+            document.getElementById('btn-parking').innerText = data.parking;
+            document.getElementById('btn-buildings').innerText = data.buildings;
+            document.getElementById('btn-map').innerText = data.map;
+            document.getElementById('btn-gifts').innerText = data.gifts;
+            document.getElementById('btn-ai').innerText = data.ai;
+        }
+    </script>
+</body>
+</html>
