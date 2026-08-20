@@ -917,24 +917,41 @@
             });
         }
 
+        let LANGUAGE_SWITCHING = false;
+
         function changeLanguage(lang) {
+            if (LANGUAGE_SWITCHING) return;
             if (!FULL_I18N[lang] && lang !== 'zh') return;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                const active = btn.dataset.lang === lang;
-                btn.classList.remove('bg-gold','bg-[#7EA094]','text-forest','text-white');
-                if (active) {
-                    btn.classList.add('bg-gold','text-forest');
-                } else {
-                    btn.classList.add('bg-[#7EA094]','text-white');
-                }
-                btn.classList.add('font-bold');
+
+            LANGUAGE_SWITCHING = true;
+
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const active = btn.dataset.lang === lang;
+                    btn.classList.remove('bg-gold','bg-[#7EA094]','text-forest','text-white');
+
+                    if (active) {
+                        btn.classList.add('bg-gold','text-forest');
+                    } else {
+                        btn.classList.add('bg-[#7EA094]','text-white');
+                    }
+
+                    btn.classList.add('font-bold');
+                    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+                });
+
+                translateFullPage(lang);
+
+                requestAnimationFrame(() => {
+                    LANGUAGE_SWITCHING = false;
+                });
             });
-            captureOriginalTextNodes();
-            translateFullPage(lang);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            captureOriginalTextNodes();
+            if (!ORIGINAL_TEXT_NODES.length) {
+                captureOriginalTextNodes();
+            }
             changeLanguage('zh');
         });
     </script>
