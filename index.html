@@ -165,32 +165,160 @@
         </div>
     </section>
 
-    <!-- 4. 停車攻略 -->
-    <section id="parking" class="py-12 bg-white border-y border-sage/20">
+
+    <!-- 4. 行前入住與停車指南 -->
+    <section id="parking" class="py-14 bg-white border-y border-sage/20">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-forest text-cream rounded-2xl p-6 md:p-10 shadow-xl relative overflow-hidden">
-                <div class="max-w-2xl space-y-4">
-                    <span class="bg-gold text-forest text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Parking Guide</span>
-                    <h3 class="text-2xl md:text-3xl font-serif font-bold">飯店專屬停車指南</h3>
-                    <p class="text-cream/80 text-sm leading-relaxed">
-                        入園時需先支付園區代收停車費，請於辦理入住時 **出示停車繳費憑證**，櫃檯將為您辦理住宿期間 **180元 折抵優惠**。若同行有長輩或重大型行李，可先於服務中心臨停卸貨再前往停放。
-                    </p>
-                    <div class="pt-4 flex flex-wrap gap-3">
-                        <button onclick="startGPSNavigation()" class="bg-gold text-forest font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-white transition flex items-center space-x-2">
-                            <span>🧭</span><span>從目前位置開始導航</span>
-                        </button>
-                        <button onclick="getCurrentLocation()" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-forest-dark transition flex items-center space-x-2">
-                            <span>📍</span><span>取得並分享 GPS 位置</span>
-                        </button>
-                        <button onclick="toggleMapModal()" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-forest-dark transition flex items-center space-x-2">
-                            <span>🗺️</span><span>查看停車場地圖</span>
-                        </button>
+
+            <!-- 行前提醒 -->
+            <div class="rounded-3xl border-2 border-gold bg-[#F7F5EF] shadow-lg overflow-hidden mb-8">
+                <div class="px-6 md:px-8 pt-6 pb-3 flex items-center gap-3">
+                    <span class="text-2xl">⚠️</span>
+                    <h3 class="text-xl md:text-2xl font-serif font-bold text-[#A5523E]">出發前，您知道嗎？</h3>
+                </div>
+
+                <div class="px-5 md:px-7 pb-6 space-y-3">
+                    <div class="bg-white rounded-2xl border border-sage/25 p-4 md:p-5 flex gap-4 items-start">
+                        <div class="w-9 h-9 shrink-0 rounded-full bg-forest text-white flex items-center justify-center font-bold">1</div>
+                        <div>
+                            <h4 class="font-bold text-forest text-base md:text-lg">本飯店位在「台大實驗林園區」內</h4>
+                            <p class="text-sm text-gray-600 mt-1">不是一般市區飯店，需經園區管制閘門才能抵達。</p>
+                        </div>
                     </div>
-                    <div id="gpsStatus" class="mt-3 text-xs text-cream/80 bg-white/10 border border-white/10 rounded-xl px-4 py-3">
-                        📍 尚未取得您的位置。點選「取得並分享 GPS 位置」後，瀏覽器會詢問定位權限；同意後，本次定位將傳送至智慧導覽後台。
+
+                    <div class="bg-white rounded-2xl border border-sage/25 p-4 md:p-5 flex gap-4 items-start">
+                        <div class="w-9 h-9 shrink-0 rounded-full bg-[#B45B43] text-white flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h4 class="font-bold text-[#A5523E] text-base md:text-lg">飯店有三個住宿棟別，設施不一樣</h4>
+                            <p class="text-sm text-gray-600 mt-1">僅「漢光樓」設有電梯，大學樓與鳳凰樓需自行提行李爬樓梯。</p>
+                        </div>
                     </div>
+
+                    <div class="bg-white rounded-2xl border border-sage/25 p-4 md:p-5 flex gap-4 items-start">
+                        <div class="w-9 h-9 shrink-0 rounded-full bg-forest text-white flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h4 class="font-bold text-forest text-base md:text-lg">入園需「另外」繳交 NT$180 汽車規費</h4>
+                            <p class="text-sm text-gray-600 mt-1">此為台大實驗林收取，不含在住宿費內，請備妥現金。</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-sage/25 p-4 md:p-5 flex gap-4 items-start">
+                        <div class="w-9 h-9 shrink-0 rounded-full bg-[#B45B43] text-white flex items-center justify-center font-bold">4</div>
+                        <div>
+                            <h4 class="font-bold text-[#A5523E] text-base md:text-lg">園區有門禁，逾時將完全無法進入</h4>
+                            <p class="text-sm text-gray-600 mt-1">1 號門 22:00 鎖閉、2 號門 17:00 鎖閉，錯過就進不來。</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-sage/25 p-4 md:p-5 flex gap-4 items-start">
+                        <div class="w-9 h-9 shrink-0 rounded-full bg-forest text-white flex items-center justify-center font-bold">5</div>
+                        <div>
+                            <h4 class="font-bold text-forest text-base md:text-lg">假日與連假，園區停車位常常滿位</h4>
+                            <p class="text-sm text-gray-600 mt-1">建議 08:00 前抵達，越晚越難停，且入口易塞車。</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-gray-500 pt-1">以下細節可依需要展開查看，不用一次記全部。</p>
                 </div>
             </div>
+
+            <!-- 門禁時間 -->
+            <details open class="group rounded-3xl border border-[#E6B3A7] bg-[#FFF7F4] overflow-hidden mb-6 shadow-sm">
+                <summary class="list-none cursor-pointer px-6 py-5 flex items-center justify-between bg-[#F7E7E1]">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">⚠️</span>
+                        <div>
+                            <h4 class="font-bold text-[#A5523E] text-lg">門禁時間</h4>
+                            <p class="text-sm text-gray-600">1 號門 22:00 鎖、2 號門 17:00 鎖</p>
+                        </div>
+                    </div>
+                    <span class="text-[#A5523E] transition group-open:rotate-180">⌃</span>
+                </summary>
+
+                <div class="p-6">
+                    <div class="flex items-center justify-between border-b border-[#EED7D1] pb-3 mb-4">
+                        <div class="font-bold text-[#A5523E]">🔒 台大實驗林管制閘門鎖閉時間</div>
+                        <span class="text-xs px-3 py-1 rounded-full bg-[#F2DED7] text-[#A5523E] font-bold">逾時無法進入</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white rounded-2xl border border-[#EED7D1] p-5">
+                            <div class="font-bold text-gray-700">● 1 號門（米堤側門／景觀門）</div>
+                            <div class="text-2xl font-bold text-[#B4543D] mt-2">22:00 – 07:00 鎖閉</div>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-[#EED7D1] p-5">
+                            <div class="font-bold text-gray-700">● 2 號門（第二售票處）</div>
+                            <div class="text-2xl font-bold text-[#B4543D] mt-2">17:00 – 07:00 鎖閉</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-[#B75B43] text-white rounded-2xl px-5 py-4 font-bold text-center">
+                        ⚠️ 警告：超過門禁時間閘門完全鎖閉，入車皆不得出入（卡在門外無法入住）！
+                    </div>
+                </div>
+            </details>
+
+            <!-- 規費與停車 -->
+            <details open class="group rounded-3xl border border-[#B8CDBD] bg-[#FBFDF9] overflow-hidden shadow-sm">
+                <summary class="list-none cursor-pointer px-6 py-5 flex items-center justify-between bg-[#F7FBF4]">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">🚙</span>
+                        <div>
+                            <h4 class="font-bold text-forest text-lg">規費與停車</h4>
+                            <p class="text-sm text-gray-600">NT$180 現金・假日建議 08:00 前到</p>
+                        </div>
+                    </div>
+                    <span class="text-forest transition group-open:rotate-180">⌃</span>
+                </summary>
+
+                <div class="p-6 space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="rounded-2xl border border-[#CAD8C9] bg-[#EEF5EB] p-5">
+                            <div class="font-bold text-forest">🪙 台大實驗林汽車規費</div>
+                            <p class="text-sm text-gray-600 mt-2">小型車／重機／機車：<span class="text-xl font-bold text-[#A56A1D]">NT$180 元/次</span></p>
+                        </div>
+
+                        <div class="rounded-2xl border border-[#CAD8C9] bg-[#EEF5EB] p-5">
+                            <div class="font-bold text-forest">⏱ 第一停車場 30 分鐘計費警告</div>
+                            <p class="text-sm text-gray-600 mt-2">經第一停車場車牌辨識閘門請勿停留超過 30 分鐘，否則園區將另計停車費。</p>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-[#E8C98B] bg-[#FFF9EC] p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="font-bold text-[#A5523E]">🚦 🔴 假日爆滿避車潮攻略</div>
+                            <span class="text-xs px-3 py-1 rounded-full bg-[#F8E8BD] text-[#9A6A22] font-bold">連假必看</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-3">週末與連假 09:00 - 12:00 停車場極易客滿（車輛一進一出塞車）。</p>
+                        <div class="grid md:grid-cols-2 gap-3 mt-4">
+                            <div class="bg-white rounded-xl border border-[#ECDCB9] p-4 text-sm text-gray-700">● 建議 08:00 前抵達第一停車場。</div>
+                            <div class="bg-white rounded-xl border border-[#ECDCB9] p-4 text-sm text-gray-700">● 若已塞車，可將車停於鹿谷市區轉乘公車上山。</div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl bg-[#F5E8BF] border border-[#E4C777] p-5 flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-full bg-[#D9AA33] flex items-center justify-center text-xl">🎁</div>
+                        <div class="font-bold text-[#8B6517]">綠色停車券可至櫃台兌換好禮</div>
+                    </div>
+
+                    <!-- GPS / 地圖操作 -->
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="startGPSNavigation()" class="bg-gold text-forest font-bold px-5 py-3 rounded-xl hover:bg-forest hover:text-white transition flex items-center space-x-2">
+                            <span>🧭</span><span>從目前位置開始導航</span>
+                        </button>
+                        <button onclick="getCurrentLocation()" class="bg-forest-light border border-sage/40 text-cream font-bold px-5 py-3 rounded-xl hover:bg-forest-dark transition flex items-center space-x-2">
+                            <span>📍</span><span>取得並分享 GPS 位置</span>
+                        </button>
+                        <button onclick="toggleMapModal()" class="bg-forest text-white font-bold px-5 py-3 rounded-xl hover:bg-forest-dark transition flex items-center space-x-2">
+                            <span>🗺️</span><span>查看飯店地圖與入住動線</span>
+                        </button>
+                    </div>
+
+                    <div id="gpsStatus" class="text-xs text-forest/80 bg-white border border-sage/20 rounded-xl px-4 py-3">
+                        📍 尚未取得您的位置。點選「取得並分享 GPS 位置」後，瀏覽器會詢問定位權限。
+                    </div>
+                </div>
+            </details>
         </div>
     </section>
 
