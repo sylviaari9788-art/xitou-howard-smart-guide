@@ -50,35 +50,40 @@
     <header class="sticky top-0 z-40 bg-forest text-cream shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/40">
-                    <span class="text-gold font-serif font-bold text-xl">福</span>
+                
+                <div class="hidden md:flex items-center justify-between gap-6 bg-[#5F8778] rounded-[22px] px-5 py-4 min-w-[520px] border border-white/5">
+                    <div class="flex items-center">
+                        <div class="inline-flex items-center gap-2 bg-[#3E6759] text-white rounded-full px-4 py-2 text-sm font-bold tracking-wide">
+                            <span>🌐</span>
+                            <span>語言 Language</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" data-lang="zh" onclick="changeLanguage('zh')" class="lang-btn bg-gold text-forest font-bold rounded-xl px-4 py-2 text-sm transition hover:brightness-105">繁中</button>
+                        <button type="button" data-lang="en" onclick="changeLanguage('en')" class="lang-btn bg-[#7EA094] text-white font-bold rounded-xl px-4 py-2 text-sm transition hover:bg-[#88AA9E]">EN</button>
+                        <button type="button" data-lang="ja" onclick="changeLanguage('ja')" class="lang-btn bg-[#7EA094] text-white font-bold rounded-xl px-4 py-2 text-sm transition hover:bg-[#88AA9E]">日本語</button>
+                        <button type="button" data-lang="ko" onclick="changeLanguage('ko')" class="lang-btn bg-[#7EA094] text-white font-bold rounded-xl px-4 py-2 text-sm transition hover:bg-[#88AA9E]">한국어</button>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-lg md:text-xl font-serif font-bold text-cream tracking-wide" id="nav-title">溪頭福華渡假飯店</h1>
-                    <p class="text-xs text-sage tracking-widest hidden sm:block">HOWARD RESORT XITOU</p>
+
+        </div>
+    
+        <!-- Mobile language bar -->
+        <div class="md:hidden bg-[#5F8778] px-4 py-3 border-t border-white/10">
+            <div class="flex items-center justify-between gap-3 overflow-x-auto">
+                <div class="inline-flex shrink-0 items-center gap-2 bg-[#3E6759] text-white rounded-full px-3 py-2 text-xs font-bold">
+                    <span>🌐</span><span>語言 Language</span>
                 </div>
-            </div>
-
-            <!-- 導覽連結 -->
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#hero" class="hover:text-gold transition">首頁</a>
-                <a href="#steps" class="hover:text-gold transition" id="nav-checkin">入住指南</a>
-                <a href="#parking" class="hover:text-gold transition" id="nav-parking">停車資訊</a>
-                <a href="#buildings" class="hover:text-gold transition" id="nav-buildings">住宿棟別</a>
-                <a href="#gifts" class="hover:text-gold transition" id="nav-gifts">住房好禮</a>
-                <a href="#faq" class="hover:text-gold transition" id="nav-faq">常見問題</a>
-            </nav>
-
-            <!-- 語系切換器：膠囊分段按鈕 -->
-            <div class="flex items-center rounded-full border border-sage/40 bg-forest-dark/80 p-1 text-xs md:text-sm shadow-inner whitespace-nowrap">
-                <span class="px-2 text-cream/80 hidden sm:inline">🌐</span>
-                <button type="button" data-lang="zh" onclick="changeLanguage('zh')" class="lang-btn rounded-full bg-cream text-forest px-3 md:px-4 py-1.5 font-bold transition">中文</button>
-                <button type="button" data-lang="en" onclick="changeLanguage('en')" class="lang-btn rounded-full text-cream px-2.5 md:px-4 py-1.5 font-medium hover:bg-white/10 transition"><span class="hidden xl:inline">English</span><span class="xl:hidden">EN</span></button>
-                <button type="button" data-lang="ja" onclick="changeLanguage('ja')" class="lang-btn rounded-full text-cream px-2.5 md:px-4 py-1.5 font-medium hover:bg-white/10 transition"><span class="hidden xl:inline">日本語</span><span class="xl:hidden">日</span></button>
-                <button type="button" data-lang="ko" onclick="changeLanguage('ko')" class="lang-btn rounded-full text-cream px-2.5 md:px-4 py-1.5 font-medium hover:bg-white/10 transition"><span class="hidden xl:inline">한국어</span><span class="xl:hidden">한</span></button>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button type="button" data-lang="zh" onclick="changeLanguage('zh')" class="lang-btn bg-gold text-forest font-bold rounded-lg px-3 py-2 text-xs">繁中</button>
+                    <button type="button" data-lang="en" onclick="changeLanguage('en')" class="lang-btn bg-[#7EA094] text-white font-bold rounded-lg px-3 py-2 text-xs">EN</button>
+                    <button type="button" data-lang="ja" onclick="changeLanguage('ja')" class="lang-btn bg-[#7EA094] text-white font-bold rounded-lg px-3 py-2 text-xs">日本語</button>
+                    <button type="button" data-lang="ko" onclick="changeLanguage('ko')" class="lang-btn bg-[#7EA094] text-white font-bold rounded-lg px-3 py-2 text-xs">한국어</button>
+                </div>
             </div>
         </div>
-    </header>
+
+</header>
 
     <!-- 2. Hero Section 首頁形象區 -->
     <section id="hero" class="relative bg-forest text-cream py-16 md:py-24 px-4 overflow-hidden">
@@ -486,7 +491,7 @@
                     <span id="faq-icon-1" class="text-gold font-bold">＋</span>
                 </button>
                 <div id="faq-ans-1" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
-                    入住登記櫃檯位於 **溪頭福華服務中心大廳**。辦理入住時間為 **下午 15:00 後**，退房時間為 **上午 11:00 前**。提前抵達可先寄放行李。
+                    入住登記櫃檯位於「溪頭福華服務中心大廳」。辦理入住時間為 ，下午 15:00 後，退房時間為 ，上午 11:00 前。提前抵達可先寄放行李。
                 </div>
             </div>
             <!-- QA 2 -->
@@ -496,7 +501,7 @@
                     <span id="faq-icon-2" class="text-gold font-bold">＋</span>
                 </button>
                 <div id="faq-ans-2" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
-                    目前飯店僅 **漢光樓** 配備電梯；大學樓、鳳凰樓與紅樓皆無電梯設施。若同行有長輩或行動不便者，建議優先預約 **漢光樓**。
+                    目前飯店僅 「漢光樓」 配備電梯；大學樓、鳳凰樓與紅樓皆無電梯設施。若同行有長輩或行動不便者，建議優先預約 「漢光樓」。
                 </div>
             </div>
             <!-- QA 3 -->
@@ -506,7 +511,7 @@
                     <span id="faq-icon-3" class="text-gold font-bold">＋</span>
                 </button>
                 <div id="faq-ans-3" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
-                    住房旅客享入園停車折抵優惠。入園時繳交之停車費，請保留繳費單據，並於 Check-in 時出示給櫃檯人員，即可辦理 **180 元住宿停車折抵**。
+                    住房旅客享入園停車折抵優惠。入園時繳交之停車費，請保留繳費單據，並於 Check-in 時出示給櫃檯人員，即可辦理 180 元住宿停車折抵。
                 </div>
             </div>
             <!-- QA 4 -->
@@ -516,7 +521,7 @@
                     <span id="faq-icon-4" class="text-gold font-bold">＋</span>
                 </button>
                 <div id="faq-ans-4" class="hidden p-4 pt-0 text-sm text-gray-600 border-t border-gray-100">
-                    可先將車輛臨停於 **大廳門口臨停區** 卸下行李，櫃檯服務中心提供行李暫存及協助運送至住宿棟別之服務。
+                    可先將車輛臨停於 「大廳門口臨停區」卸下行李，櫃檯服務中心提供行李暫存及協助運送至住宿棟別之服務。
                 </div>
             </div>
         </div>
@@ -978,11 +983,13 @@
             if (!FULL_I18N[lang] && lang !== 'zh') return;
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 const active = btn.dataset.lang === lang;
-                btn.classList.toggle('bg-cream', active);
-                btn.classList.toggle('text-forest', active);
-                btn.classList.toggle('font-bold', active);
-                btn.classList.toggle('text-cream', !active);
-                btn.classList.toggle('font-medium', !active);
+                btn.classList.remove('bg-gold','bg-[#7EA094]','text-forest','text-white');
+                if (active) {
+                    btn.classList.add('bg-gold','text-forest');
+                } else {
+                    btn.classList.add('bg-[#7EA094]','text-white');
+                }
+                btn.classList.add('font-bold');
             });
             translateFullPage(lang);
         }
